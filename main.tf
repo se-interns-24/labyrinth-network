@@ -1,7 +1,7 @@
 #defining providers
-/*
+
 provider "hcp" {
-} */
+} 
 
 provider "aws" {
     region = var.region
