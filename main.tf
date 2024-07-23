@@ -23,11 +23,29 @@ resource "aws_internet_gateway" "gw"{
 resource "aws_subnet" "subnet"{
   vpc_id = aws_vpc.vpc.id
   cidr_block = var.cidr_subnet
+  availability_zone = "us-east-1c"
+
+  tags = {
+    Name = "Subnet in us-east-1c"
+  }
+}
+
+resource "aws_subnet" "subnet_b" {
+  vpc_id     = aws_vpc.vpc.id
+  cidr_block = var.cidr_subnet_b
+  availability_zone = "us-east-1b"
+
+  tags = {
+    Name = "Subnet in us-east-1b"
+  }
 }
 
 resource "aws_db_subnet_group" "subnet-group" {
   name       = "db-subnet-group"
-  subnet_ids = [aws_subnet.subnet.id]
+  subnet_ids = [
+    aws_subnet.subnet.id,
+    aws_subnet.subnet_b.id
+  ]
 }
 
 #defines route table to control the routing for network traffic leaving subnets
