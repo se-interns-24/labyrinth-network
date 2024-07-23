@@ -25,6 +25,11 @@ resource "aws_subnet" "subnet"{
   cidr_block = var.cidr_subnet
 }
 
+resource "aws_db_subnet_group" "subnet-group" {
+  name       = "db-subnet-group"
+  subnet_ids = [aws_subnet.subnet.*.id]
+}
+
 #defines route table to control the routing for network traffic leaving subnets
 resource "aws_route_table" "table" {
   vpc_id = aws_vpc.vpc.id
@@ -33,7 +38,6 @@ resource "aws_route_table" "table" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.gw.id
   }
-
 }
 
 #associates the route table with a subnet - determines where network traffic is directed
@@ -68,4 +72,25 @@ resource "aws_security_group" "sg"{
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+resource "aws_security_group" "rds-sg" { 
+  name = "rds_sg" 
+  vpc_id = aws_vpc.vpc.id 
+    
+  # Allows inbound MySQL traffic from the application security group 
+  ingress { 
+    from_port = 3306 
+    to_port = 3306 
+    protocol = "tcp" 
+    security_groups = [aws_security_group.sg.id] 
+  } 
+      
+  # Allows outbound traffic to any IP 
+  egress { 
+    from_port = 0 
+    to_port = 0 
+    protocol = "-1" 
+    cidr_blocks = ["0.0.0.0/0"] 
+  } 
 }
