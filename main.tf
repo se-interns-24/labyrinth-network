@@ -27,7 +27,7 @@ resource "aws_subnet" "subnet"{
 
 resource "aws_db_subnet_group" "subnet-group" {
   name       = "db-subnet-group"
-  subnet_ids = [aws_subnet.subnet.*.id]
+  subnet_ids = [aws_subnet.subnet.id]
 }
 
 #defines route table to control the routing for network traffic leaving subnets
