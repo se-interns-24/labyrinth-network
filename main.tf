@@ -92,6 +92,7 @@ resource "aws_security_group" "sg"{
   }
 }
 
+/*
 resource "aws_security_group" "rds-sg" { 
   name = "rds_sg" 
   vpc_id = aws_vpc.vpc.id 
@@ -111,4 +112,4 @@ resource "aws_security_group" "rds-sg" {
     protocol = "-1" 
     cidr_blocks = ["0.0.0.0/0"] 
   } 
-}
+} */
