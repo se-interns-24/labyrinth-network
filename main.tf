@@ -24,12 +24,12 @@ resource "aws_subnet" "subnet"{
   vpc_id = aws_vpc.vpc.id
   cidr_block = var.cidr_subnet
   #availability_zone = "us-east-1c"
-/*
+
   tags = {
     Name = "Subnet in us-east-1c"
-  }*/
+  }
 }
-/*
+
 resource "aws_subnet" "subnet_b" {
   vpc_id     = aws_vpc.vpc.id
   cidr_block = var.cidr_subnet_b
@@ -46,7 +46,7 @@ resource "aws_db_subnet_group" "subnet-group" {
     aws_subnet.subnet.id,
     aws_subnet.subnet_b.id
   ]
-}*/
+}
 
 #defines route table to control the routing for network traffic leaving subnets
 resource "aws_route_table" "table" {
@@ -92,7 +92,7 @@ resource "aws_security_group" "sg"{
   }
 }
 
-/*
+
 resource "aws_security_group" "rds-sg" { 
   name = "rds_sg" 
   vpc_id = aws_vpc.vpc.id 
@@ -112,4 +112,4 @@ resource "aws_security_group" "rds-sg" {
     protocol = "-1" 
     cidr_blocks = ["0.0.0.0/0"] 
   } 
-} */
+} 
