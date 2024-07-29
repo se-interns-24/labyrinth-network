@@ -24,10 +24,10 @@ resource "aws_subnet" "subnet"{
   vpc_id = aws_vpc.vpc.id
   cidr_block = var.cidr_subnet
   #availability_zone = "us-east-1c"
-
+/*
   tags = {
     Name = "Subnet in us-east-1c"
-  }
+  }*/
 }
 /*
 resource "aws_subnet" "subnet_b" {
