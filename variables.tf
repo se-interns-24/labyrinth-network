@@ -3,9 +3,19 @@ variable "region" {
   default     = "us-east-1"
 }
 
-variable "instance_type" {
-  description = "EC2 instance type"
-  default     = "t2.micro"
+variable "availability_zone" {
+  description = "Subnet A AZ"
+  default     = "us-east-1c"
+}
+
+variable "availability_zone_b" {
+  description = "Subnet B AZ"
+  default     = "us-east-1b"
+}
+
+variable "subnet_group_name" {
+  description = "DB subnet group name"
+  default     = "db-subnet-group"
 }
 
 variable "cidr_vpc" {
@@ -21,4 +31,19 @@ variable "cidr_subnet"{
 variable "cidr_subnet_b"{
   description = "CIDR block for the subnet"
   default = "10.1.2.0/24" //allows to divide VPC into smaller & manageable segments
+}
+
+variable "cidr_route_table" {
+  description = "CIDR block for the route table"
+  default     = "0.0.0.0/0"
+}
+
+variable "security_group_name" {
+  description = "Name for app's security group"
+  default     = "sg"
+}
+
+variable "rds_security_group_name" {
+  description = "Name for DB's security group"
+  default     = "rds_sg"
 }
