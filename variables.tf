@@ -3,6 +3,11 @@ variable "region" {
   default     = "us-east-1"
 }
 
+variable "vpc_name" {
+  description = "VPC name dev"
+  default     = "labyrinth-vpc-stage"
+}
+
 variable "availability_zone" {
   description = "Subnet A AZ"
   default     = "us-east-1c"
