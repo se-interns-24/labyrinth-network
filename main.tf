@@ -8,6 +8,7 @@ provider "aws" {
 
 #defines a virtual private cloud - isolated network to launch ec2 instance - VPC/networking
 resource "aws_vpc" "vpc" {
+  name = var.vpc_name
   cidr_block           = var.cidr_vpc
   enable_dns_support   = true
   enable_dns_hostnames = true
