@@ -20,7 +20,7 @@ variable "availability_zone_b" {
 
 variable "subnet_group_name" {
   description = "DB subnet group name"
-  default     = "db-subnet-group"
+  default     = "db-subnet-group-stage"
 }
 
 variable "cidr_vpc" {
