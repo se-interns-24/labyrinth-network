@@ -1,5 +1,4 @@
 #defining providers
-
 provider "hcp" {
 } 
 
@@ -23,7 +22,7 @@ resource "aws_internet_gateway" "gw"{
 resource "aws_subnet" "subnet"{
   vpc_id = aws_vpc.vpc.id
   cidr_block = var.cidr_subnet
-  availability_zone = "us-east-1c"
+  availability_zone = var.availability_zone
 
   tags = {
     Name = "Subnet in us-east-1c"
@@ -33,7 +32,7 @@ resource "aws_subnet" "subnet"{
 resource "aws_subnet" "subnet_b" {
   vpc_id     = aws_vpc.vpc.id
   cidr_block = var.cidr_subnet_b
-  availability_zone = "us-east-1b"
+  availability_zone = var.availability_zone_b
 
   tags = {
     Name = "Subnet in us-east-1b"
@@ -41,7 +40,7 @@ resource "aws_subnet" "subnet_b" {
 }
 
 resource "aws_db_subnet_group" "subnet-group" {
-  name       = "db-subnet-group"
+  name       = var.subnet_group_name
   subnet_ids = [
     aws_subnet.subnet.id,
     aws_subnet.subnet_b.id
@@ -53,7 +52,7 @@ resource "aws_route_table" "table" {
   vpc_id = aws_vpc.vpc.id
 
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block = var.cidr_route_table
     gateway_id = aws_internet_gateway.gw.id
   }
 }
@@ -66,7 +65,7 @@ resource "aws_route_table_association" "table" {
 
 #creates security group that acts as a firewall to control traffic
 resource "aws_security_group" "sg"{
-  name = "sg"
+  name = var.security_group_name
   vpc_id = aws_vpc.vpc.id
 
   #allows ssh traffic from any IP
@@ -92,9 +91,8 @@ resource "aws_security_group" "sg"{
   }
 }
 
-
 resource "aws_security_group" "rds-sg" { 
-  name = "rds_sg" 
+  name = var.rds_security_group_name
   vpc_id = aws_vpc.vpc.id 
     
   # Allows inbound MySQL traffic from the application security group 
