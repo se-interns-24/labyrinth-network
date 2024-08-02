@@ -18,7 +18,17 @@ output "subnet_id" {
   value       = aws_subnet.subnet.*.id
 }
 
+output "subnet_id_b" {
+  description = "Subnet IDs"
+  value       = aws_subnet.subnet_b.*.id
+}
+
 output "subnet_group_name" {
   description = "Name of the DB subnet group"
   value       = aws_db_subnet_group.subnet-group.name
+}
+
+output "vpc_id" {
+  description = "VPC ID"
+  value       = aws_vpc.vpc.id
 }
