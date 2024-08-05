@@ -10,17 +10,17 @@ variable "vpc_name" {
 
 variable "availability_zone" {
   description = "Subnet A AZ"
-  default     = "us-east-1c"
+  default     = "us-east-2c"
 }
 
 variable "availability_zone_b" {
   description = "Subnet B AZ"
-  default     = "us-east-1b"
+  default     = "us-east-2b"
 }
 
 variable "subnet_group_name" {
   description = "DB subnet group name"
-  default     = "db-subnet-group-stage"
+  default     = "db-subnet-group"
 }
 
 variable "cidr_vpc" {
