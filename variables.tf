@@ -1,6 +1,6 @@
 variable "region" {
   description = "AWS region"
-  default     = "us-west-1"
+  default     = "us-west-2"
 }
 
 variable "vpc_name" {
@@ -10,12 +10,12 @@ variable "vpc_name" {
 
 variable "availability_zone" {
   description = "Subnet A AZ"
-  default     = "us-west-1c"
+  default     = "us-west-2c"
 }
 
 variable "availability_zone_b" {
   description = "Subnet B AZ"
-  default     = "us-west-1b"
+  default     = "us-west-2b"
 }
 
 variable "subnet_group_name" {
