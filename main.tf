@@ -1,5 +1,4 @@
 #defining providers
-
 provider "hcp" {
 } 
 
@@ -12,6 +11,10 @@ resource "aws_vpc" "vpc" {
   cidr_block           = var.cidr_vpc
   enable_dns_support   = true
   enable_dns_hostnames = true
+
+  tags = {
+    Name = var.vpc_name
+  }
 }
 
 #creates gateway that allows VPC to talk to internet - VPC/networking & down
@@ -23,6 +26,29 @@ resource "aws_internet_gateway" "gw"{
 resource "aws_subnet" "subnet"{
   vpc_id = aws_vpc.vpc.id
   cidr_block = var.cidr_subnet
+  availability_zone = var.availability_zone
+
+  tags = {
+    Name = "Subnet in us-east-1c"
+  }
+}
+
+resource "aws_subnet" "subnet_b" {
+  vpc_id     = aws_vpc.vpc.id
+  cidr_block = var.cidr_subnet_b
+  availability_zone = var.availability_zone_b
+
+  tags = {
+    Name = "Subnet in us-east-1b"
+  }
+}
+
+resource "aws_db_subnet_group" "subnet-group" {
+  name       = var.subnet_group_name
+  subnet_ids = [
+    aws_subnet.subnet.id,
+    aws_subnet.subnet_b.id
+  ]
 }
 
 #defines route table to control the routing for network traffic leaving subnets
@@ -30,10 +56,9 @@ resource "aws_route_table" "table" {
   vpc_id = aws_vpc.vpc.id
 
   route {
-    cidr_block = "0.0.0.0/0"
+    cidr_block = var.cidr_route_table
     gateway_id = aws_internet_gateway.gw.id
   }
-
 }
 
 #associates the route table with a subnet - determines where network traffic is directed
@@ -44,7 +69,7 @@ resource "aws_route_table_association" "table" {
 
 #creates security group that acts as a firewall to control traffic
 resource "aws_security_group" "sg"{
-  name = "sg"
+  name = var.security_group_name
   vpc_id = aws_vpc.vpc.id
 
   #allows ssh traffic from any IP
@@ -69,3 +94,24 @@ resource "aws_security_group" "sg"{
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+resource "aws_security_group" "rds-sg" { 
+  name = var.rds_security_group_name
+  vpc_id = aws_vpc.vpc.id 
+    
+  # Allows inbound MySQL traffic from the application security group 
+  ingress { 
+    from_port = 3306 
+    to_port = 3306 
+    protocol = "tcp" 
+    security_groups = [aws_security_group.sg.id] 
+  } 
+      
+  # Allows outbound traffic to any IP 
+  egress { 
+    from_port = 0 
+    to_port = 0 
+    protocol = "-1" 
+    cidr_blocks = ["0.0.0.0/0"] 
+  } 
+} 
