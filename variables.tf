@@ -5,7 +5,7 @@ variable "region" {
 
 variable "vpc_name" {
   description = "VPC name dev"
-  default     = "labyrinth-vpc-stage"
+  default     = "labyrinth-vpc"
 }
 
 variable "availability_zone" {
