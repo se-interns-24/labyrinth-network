@@ -3,7 +3,7 @@ variable "region" {
 }
 
 variable "vpc_name" {
-  description = "VPC name dev"
+  description = "VPC name"
   default     = "labyrinth-vpc"
 }
 
