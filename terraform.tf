@@ -10,15 +10,12 @@ terraform {
       source  = "hashicorp/hcp"
       version = "0.17.0"
     }
-    
-  }
-  /*
-  cloud {
-    organization = "sofia_test"
-    workspaces {
-      name = "path-to-packer"
+
+    random = {
+      source = "hashicorp/random"
+      version = "3.6.2"
     }
   }
-  */
+  
   required_version = "~> 1.2"
 }
