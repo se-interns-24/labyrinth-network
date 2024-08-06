@@ -42,7 +42,7 @@ variable "cidr_route_table" {
 
 variable "security_group_name" {
   description = "Name for app's security group"
-  default     = "sg"
+  default     = "sg1"
 }
 
 variable "rds_security_group_name" {
