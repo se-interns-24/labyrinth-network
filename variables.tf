@@ -52,5 +52,5 @@ variable "rds_security_group_name" {
 
 variable "string_length" {
   description = "String length"
-  default     = 15
+  default     = 16
 }
