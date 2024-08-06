@@ -32,3 +32,8 @@ output "vpc_id" {
   description = "VPC ID"
   value       = aws_vpc.vpc.id
 }
+
+output "string" {
+  description = "VRandom string for demo"
+  value       = random_string.random.result
+}
