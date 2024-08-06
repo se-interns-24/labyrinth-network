@@ -49,3 +49,8 @@ variable "rds_security_group_name" {
   description = "Name for DB's security group"
   default     = "rds_sg"
 }
+
+variable "string_length" {
+  description = "String length"
+  default     = 16
+}
