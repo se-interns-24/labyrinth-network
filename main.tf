@@ -115,3 +115,9 @@ resource "aws_security_group" "rds-sg" {
     cidr_blocks = ["0.0.0.0/0"] 
   } 
 } 
+
+resource "random_string" "random" {
+  length           = var.string_length
+  special          = true
+  override_special = "/@£$"
+}
